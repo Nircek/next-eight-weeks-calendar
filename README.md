@@ -4,6 +4,11 @@ A small web app that creates **printable weekly calendar sheets** you can fill i
 
 Works in the browser, installs like an app, and keeps working offline after the first visit.
 
+## Screenshot
+
+<img width="1512" height="982" alt="screenshot" src="https://github.com/user-attachments/assets/df86aa57-cfc6-4e1a-bb39-3104c0b0f6a9" />
+
+
 ---
 
 ## What it does (in plain terms)
