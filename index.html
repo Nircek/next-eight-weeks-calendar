@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly Calendar</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside id="controls">
+        <div class="sidebar-header">
+          <h1>Weekly Calendar</h1>
+          <p class="sidebar-subtitle">Printable ISO week grids</p>
+        </div>
+
+        <section class="control-section" aria-labelledby="section-dates">
+          <h2 id="section-dates">Dates &amp; Labels</h2>
+          <div class="control-field">
+            <label for="start-week">Start week</label>
+            <input id="start-week" type="week" />
+          </div>
+          <div class="control-field">
+            <label for="epoch-week">Epoch reference</label>
+            <input id="epoch-week" type="week" />
+          </div>
+          <div class="control-field">
+            <label for="label-mode">Label mode</label>
+            <select id="label-mode">
+              <option value="iso">ISO only</option>
+              <option value="epoch">Epoch only</option>
+              <option value="iso+epoch" selected>ISO + Epoch</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="control-section" aria-labelledby="section-weeks">
+          <h2 id="section-weeks">Week Counts</h2>
+          <div class="control-field-row">
+            <div class="control-field">
+              <label for="total-weeks">Total weeks</label>
+              <input id="total-weeks" type="number" min="1" value="8" />
+            </div>
+            <div class="control-field">
+              <label for="weeks-per-page">Per page</label>
+              <input id="weeks-per-page" type="number" min="1" value="8" />
+            </div>
+          </div>
+        </section>
+
+        <section class="control-section" aria-labelledby="section-dimensions">
+          <h2 id="section-dimensions">Page Size</h2>
+          <div class="control-field">
+            <label for="paper-preset">Paper preset</label>
+            <select id="paper-preset">
+              <option value="a4" selected>A4 (210 × 297 mm)</option>
+              <option value="letter">US Letter (215.9 × 279.4 mm)</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+          <div class="control-field-row">
+            <div class="control-field">
+              <label for="page-width">Width (mm)</label>
+              <input id="page-width" type="number" min="1" value="210" />
+            </div>
+            <div class="control-field">
+              <label for="page-height">Height (mm)</label>
+              <input id="page-height" type="number" min="1" value="297" />
+            </div>
+          </div>
+          <h3 class="control-subheading">Margins (mm)</h3>
+          <div class="margin-grid">
+            <div class="control-field">
+              <label for="margin-top">Top</label>
+              <input id="margin-top" type="number" min="0" value="10" />
+            </div>
+            <div class="control-field">
+              <label for="margin-right">Right</label>
+              <input id="margin-right" type="number" min="0" value="10" />
+            </div>
+            <div class="control-field">
+              <label for="margin-bottom">Bottom</label>
+              <input id="margin-bottom" type="number" min="0" value="10" />
+            </div>
+            <div class="control-field">
+              <label for="margin-left">Left</label>
+              <input id="margin-left" type="number" min="0" value="10" />
+            </div>
+          </div>
+        </section>
+
+        <section class="control-section" aria-labelledby="section-borders">
+          <h2 id="section-borders">Border Colors</h2>
+          <div class="border-control">
+            <label for="border-outer">Outer</label>
+            <div class="border-control-inputs">
+              <input id="border-outer" type="range" min="0" max="100" value="50" />
+              <span class="border-swatch" id="swatch-outer"></span>
+              <span class="border-value" id="value-outer">50%</span>
+            </div>
+          </div>
+          <div class="border-control">
+            <label for="border-vertical">Vertical</label>
+            <div class="border-control-inputs">
+              <input
+                id="border-vertical"
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+              />
+              <span class="border-swatch" id="swatch-vertical"></span>
+              <span class="border-value" id="value-vertical">50%</span>
+            </div>
+          </div>
+          <div class="border-control">
+            <label for="border-horizontal">Horizontal</label>
+            <div class="border-control-inputs">
+              <input
+                id="border-horizontal"
+                type="range"
+                min="0"
+                max="100"
+                value="50"
+              />
+              <span class="border-swatch" id="swatch-horizontal"></span>
+              <span class="border-value" id="value-horizontal">50%</span>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <div class="preview-area">
+        <header class="preview-header">
+          <div class="live-summary" id="live-summary"></div>
+          <div class="preview-zoom">
+            <label for="preview-scale">Zoom</label>
+            <input
+              id="preview-scale"
+              type="range"
+              min="10"
+              max="100"
+              value="100"
+            />
+            <span class="preview-scale-value" id="preview-scale-value">100%</span>
+            <button type="button" id="preview-fit" class="preview-fit-btn">
+              Fit
+            </button>
+          </div>
+        </header>
+        <div id="preview-viewport">
+          <div id="pages-scaler">
+            <div id="pages-inner">
+              <main id="pages"></main>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
