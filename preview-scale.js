@@ -146,4 +146,5 @@ export function initPreviewScale(elements) {
   });
 
   window.addEventListener("beforeprint", resetPreviewScaleStyles);
+  window.addEventListener("afterprint", schedulePreviewScale);
 }

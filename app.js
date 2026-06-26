@@ -61,6 +61,13 @@ const els = {
 
 const useWeekInput = supportsWeekInput();
 
+let renderFrame;
+
+function scheduleRender() {
+  if (renderFrame) cancelAnimationFrame(renderFrame);
+  renderFrame = requestAnimationFrame(render);
+}
+
 function applyPaperPreset(preset) {
   if (preset === "custom") return;
   const size = PAPER_PRESETS[preset];
@@ -249,7 +256,7 @@ function render() {
     epochMonday,
   });
 
-  els.pages.replaceChildren();
+  const fragment = document.createDocumentFragment();
 
   for (let p = 0; p < pageCount; p++) {
     const pageStart = p * weeksPerPage;
@@ -340,9 +347,10 @@ function render() {
     footer.textContent = window.location.href;
     page.appendChild(footer);
 
-    els.pages.appendChild(page);
+    fragment.appendChild(page);
   }
 
+  els.pages.replaceChildren(fragment);
   schedulePreviewScale();
 }
 
@@ -369,13 +377,12 @@ function init() {
   ];
 
   for (const input of inputs) {
-    input.addEventListener("input", render);
-    input.addEventListener("change", render);
+    input.addEventListener("input", scheduleRender);
   }
 
   els.paperPreset.addEventListener("change", () => {
     applyPaperPreset(els.paperPreset.value);
-    render();
+    scheduleRender();
   });
 
   els.pageWidth.addEventListener("input", syncPaperPresetFromDimensions);
